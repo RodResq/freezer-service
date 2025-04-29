@@ -32,7 +32,6 @@ body {
 }
 
 .hero-section {
-    background-image: url('/api/placeholder/1200/500');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
