@@ -1,0 +1,215 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Gerencia</title>
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 0;
+        }
+        
+        .login-card {
+            background-color: rgba(21, 32, 43, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 216, 234, 0.3);
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #5590a6, #15202b);
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 5px solid #a8d8ea;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .form-floating {
+            margin-bottom: 20px;
+        }
+        
+        .form-floating input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #5590a6;
+            color: #fff;
+        }
+        
+        .form-floating input:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #a8d8ea;
+            box-shadow: 0 0 0 0.25rem rgba(168, 216, 234, 0.25);
+            color: #fff;
+        }
+        
+        .form-floating label {
+            color: #a8d8ea;
+        }
+        
+        .btn-login {
+            background-color: #a8d8ea;
+            color: #15202b;
+            border-radius: 50px;
+            padding: 12px 25px;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn-login:hover {
+            background-color: #e0f7ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(168, 216, 234, 0.4);
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #a8d8ea;
+        }
+        
+        .login-footer a {
+            color: #e0f7ff;
+            text-decoration: none;
+        }
+        
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background-color: rgba(220, 53, 69, 0.2);
+            border-left: 4px solid #dc3545;
+            color: #fff;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2><i class="fas fa-snowflake me-2"></i>Gerencia</h2>
+                <p class="mb-0">Sistema de Gerenciamento Antártida</p>
+            </div>
+            <div class="login-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="error-message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                {% if form.errors %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle me-2"></i>Usuário ou senha inválidos. Por favor, tente novamente.
+                    </div>
+                {% endif %}
+                
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Nome de usuário" required>
+                        <label for="username"><i class="fas fa-user me-2"></i>Nome de usuário</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                        <label for="password"><i class="fas fa-lock me-2"></i>Senha</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="remember-me">
+                        <label class="form-check-label" for="remember-me" style="color: #a8d8ea;">
+                            Lembrar-me
+                        </label>
+                    </div>
+                    <button class="btn btn-login" type="submit">
+                        <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                    </button>
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+                <div class="login-footer">
+                    <p>Não tem uma conta? <a href="{% url 'register' %}">Registre-se</a></p>
+                    <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
+                    <p><a href="{% url 'index' %}"><i class="fas fa-home me-1"></i>Voltar para a página inicial</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Efeito de neve -->
+    <script>
+        // Criar o contêiner para os flocos de neve
+        const snowfallContainer = document.createElement('div');
+        snowfallContainer.classList.add('snowfall-container');
+        document.body.prepend(snowfallContainer);
+        
+        // Configuração dos flocos de neve
+        const totalSnowflakes = 100;
+        const snowflakeSymbols = ['❅', '❆', '❄', '✻', '✼', '❉', '❋', '❊', '•'];
+        
+        // Criar os flocos de neve
+        for (let i = 0; i < totalSnowflakes; i++) {
+            createSnowflake();
+        }
+        
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            
+            // Escolher um símbolo aleatório para o floco
+            const symbol = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+            snowflake.innerHTML = symbol;
+            
+            // Posição inicial aleatória
+            const startPositionX = Math.random() * window.innerWidth;
+            const startOpacity = 0.5 + Math.random() * 0.5;
+            
+            // Velocidade e tamanho aleatórios
+            const duration = 10 + Math.random() * 20;
+            const snowflakeSize = 7 + Math.random() * 18;
+            
+            // Aplicar estilos
+            snowflake.style.left = startPositionX + 'px';
+            snowflake.style.opacity = startOpacity;
+            snowflake.style.fontSize = snowflakeSize + 'px';
+            snowflake.style.animationDuration = duration + 's';
+            
+            // Pequeno atraso para o início da animação
+            snowflake.style.animationDelay = Math.random() * 5 + 's';
+            
+            // Adicionar ao contêiner
+            snowfallContainer.appendChild(snowflake);
+            
+            // Remover e recriar o floco após a queda completa
+            setTimeout(() => {
+                snowflake.remove();
+                createSnowflake();
+            }, duration * 1000);
+        }
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
