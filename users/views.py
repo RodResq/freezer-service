@@ -50,9 +50,9 @@ def login_view(request):
                     return redirect(next_url)
                 else:
                     return redirect('index')
-                
-                messages.success(request, f'Bem-vindo de volta, {user.username}!')
-                return redirect(next_url)
+
+            messages.success(request, f'Bem-vindo de volta, {user.username}!')
+            return redirect(next_url)
         # If form is not valid, it will re-render the login page with form errors
     else:
         form = CustomAuthenticationForm()
