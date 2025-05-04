@@ -35,7 +35,7 @@ def login_view(request):
     Handle user login
     """
     if request.user.is_authenticated:
-        return redirect('index')  # Redirect to homepage if already logged in
+        return redirect('')  # Redirect to homepage if already logged in
     
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, request.POST)
@@ -45,7 +45,12 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                next_url = request.POST.get('next', 'index')
+                next_url = request.POST.get('next')
+                if next_url and next_url != '':
+                    return redirect(next_url)
+                else:
+                    return redirect('index')
+                
                 messages.success(request, f'Bem-vindo de volta, {user.username}!')
                 return redirect(next_url)
         # If form is not valid, it will re-render the login page with form errors
