@@ -12,6 +12,7 @@ class Peca(models.Model):
     qtd_minima = models.IntegerField(blank=True, null=True, default=0)
     unidade = models.CharField(max_length=50)
     foto = models.ImageField(upload_to="foto/%Y/%m/%d/", blank=True)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     id_categoria_peca = models.ForeignKey(CategoriaPeca, on_delete=models.CASCADE, blank=False, null=False)
     id_local_armazenamento = models.ForeignKey(LocalArmazenamento, on_delete=models.SET_NULL, blank=True, null=True)
     id_fornecedor = models.ForeignKey(Fornecedor, on_delete=models.SET_NULL, blank=True, null=True)
