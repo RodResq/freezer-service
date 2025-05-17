@@ -24,7 +24,7 @@ def detalhar_local(request, local_id):
     """
         Exibe os detalhes de um local de armazenamento específico
     """
-    local = get_object_or_404(LocalArmazenamento, pf=local_id)
+    local = get_object_or_404(LocalArmazenamento, pk=local_id)
     context = {
         'local': local,
         'titulo': f'Detalhes do Local: {local.setor} - {local.estante}'
@@ -42,8 +42,8 @@ def cadastrar_local(request):
             local = form.save()
             messages.success(request, 'Local de armazenamento cadastrado com sucesso!')
             return redirect('listar_locais')
-        else:
-            form = LocalArmazenamentoForm()
+    else:
+        form = LocalArmazenamentoForm()
             
     context = {
         'form': form,
@@ -56,21 +56,21 @@ def cadastrar_local(request):
     
 
 @login_required
-def edtar_local_armazenamento(request, local_id):
+def editar_local_armazenamento(request, local_id):
     """
         Exibe o formulário para editar um local de armazenamento existente
     """
     local = get_object_or_404(LocalArmazenamento, pk=local_id)
     
     if request.method == 'POST':
-        form = LocalArmazenamentoForm(request.POST, local)
+        form = LocalArmazenamentoForm(request.POST, instance=local)
         if form.is_valid():
             form.save()
             messages.success(request, 'Local de armazenamento atualizado com sucesso!')
             return redirect('listar_locais')
-        else:
-            form = LocalArmazenamentoForm(instance=local)
-            
+    else:
+        form = LocalArmazenamentoForm(instance=local)
+        
     context = {
         'form': form,
         'titulo': 'Editar Local de Armazenamento',
@@ -78,7 +78,7 @@ def edtar_local_armazenamento(request, local_id):
         'icone': 'bi-pencil-square',
         'local_id': local_id
     }
-        
+    
     return render(request, 'local_armazenamento/form_local.html', context)
     
 @login_required

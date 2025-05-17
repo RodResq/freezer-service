@@ -1,26 +1,79 @@
-{% load static %}
-
-{% load static %}
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerencia - Sistema de Gerenciamento</title>
-    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}" >
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Sistema Antártida</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'styles/index.css' %}">
 </head>
 <body>
-    {% include 'partials/_navbar.html' %}
-    <!-- Main Content -->
-    {% block content %}{% endblock %}
+    <div class="snowfall-container">
+        <!-- Flocos de neve serão inseridos aqui via JavaScript -->
+    </div>
 
+    {% include 'partials/_navbar.html' %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
     {% include 'partials/_footer.html' %}
-        
-    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/snowfall.js' %}"></script>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para efeito de neve -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.snowfall-container');
+            const snowflakeChars = ['❄', '❅', '❆', '*', '·'];
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                createSnowflake();
+            }
+            
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                
+                // Posição inicial
+                const startPositionX = Math.random() * window.innerWidth;
+                snowflake.style.left = startPositionX + 'px';
+                
+                // Tamanho aleatório
+                const size = Math.random() * 1.5 + 0.5;
+                snowflake.style.fontSize = size + 'em';
+                
+                // Opacidade aleatória
+                snowflake.style.opacity = Math.random() * 0.8 + 0.2;
+                
+                // Duração da animação
+                const animationDuration = Math.random() * 20 + 10;
+                snowflake.style.animationDuration = animationDuration + 's';
+                
+                // Atraso da animação
+                const animationDelay = Math.random() * 15;
+                snowflake.style.animationDelay = animationDelay + 's';
+                
+                container.appendChild(snowflake);
+                
+                // Remover e recriar após a animação
+                setTimeout(() => {
+                    snowflake.remove();
+                    createSnowflake();
+                }, (animationDuration + animationDelay) * 1000);
+            }
+        });
+    </script>
 </body>
 </html>

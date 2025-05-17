@@ -1,15 +1,17 @@
 {% load static %}
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">Gerencia<span class="text-primary">.</span></a>
+        <a class="navbar-brand fw-bold" href="{% url 'index' %}">Gerencia</a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Início</a>
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Início</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'locais-armazenamento' in request.path %}active{% endif %}" href="{% url 'listar_locais' %}">
@@ -17,21 +19,24 @@
                     </a>
                 </li>
             </ul>
-            <div class="ms-3">
+            
+            <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
                     <div class="dropdown">
-                        <button class="btn btn-outline-info rounded-pill px-4 dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-2"></i>{{ user.username }}
+                        <button class="btn btn-outline-info rounded-pill dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-fill me-1"></i>{{ user.username }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style="background-color: rgba(21, 32, 43, 0.9); backdrop-filter: blur(10px);">
-                            <li><a class="dropdown-item text-light" href="{% url 'profile' %}"><i class="fas fa-user-circle me-2"></i>Meu Perfil</a></li>
-                            <li><a class="dropdown-item text-light" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
+                            <li><a class="dropdown-item text-light" href="{% url 'profile' %}"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+                            <li><a class="dropdown-item text-light" href="#"><i class="bi bi-gear me-2"></i>Configurações</a></li>
                             <li><hr class="dropdown-divider" style="border-color: rgba(168, 216, 234, 0.2);"></li>
-                            <li><a class="dropdown-item text-light" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+                            <li><a class="dropdown-item text-light" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-info rounded-pill px-4">Login</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-info rounded-pill">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                    </a>
                 {% endif %}
             </div>
         </div>
