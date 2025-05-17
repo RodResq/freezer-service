@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-light">
+            <i class="bi bi-geo-alt-fill text-info me-2"></i>
+            {{ titulo }}
+        </h2>
+        <a href="{% url 'cadastrar_local' %}" class="btn btn-info">
+            <i class="bi bi-plus-circle me-2"></i>Novo Local
+        </a>
+    </div>
+
+    {% include 'partials/_messages.html' %}
+
+    <!-- Filtro de busca -->
+    <div class="card search-card mb-4">
+        <div class="card-body">
+            <form action="{% url 'listar_locais' %}" method="GET" class="search-form">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por setor, estante..." 
+                           value="{{ request.GET.search|default:'' }}">
+                    <button type="submit" class="btn btn-search">
+                        <i class="bi bi-search me-1"></i>Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabela de locais -->
+    <div class="card iceberg-card">
+        <div class="card-body">
+            {% if locais %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-dark table-bordered">
+                        <thead class="text-info">
+                            <tr>
+                                <th>Setor</th>
+                                <th>Estante</th>
+                                <th>Prateleira</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for local in locais %}
+                                <tr>
+                                    <td>{{ local.setor|default:"-" }}</td>
+                                    <td>{{ local.estante|default:"-" }}</td>
+                                    <td>{{ local.prateleira|default:"-" }}</td>
+                                    <td>{{ local.descricao|truncatechars:50|default:"-" }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'detalhar_local' local.id %}" class="btn btn-sm btn-info" 
+                                               title="Detalhes">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>
+                                            <a href="{% url 'editar_local' local.id %}" class="btn btn-sm btn-warning" 
+                                               title="Editar">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                            <a href="{% url 'excluir_local' local.id %}" class="btn btn-sm btn-danger" 
+                                               title="Excluir">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>Nenhum local de armazenamento cadastrado.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
