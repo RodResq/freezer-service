@@ -8,3 +8,6 @@ class CategoriaPeca(models.Model):
         db_table = 'categoria_peca'
         ordering = ['nome']
         verbose_name_plural = 'categorias_pecas'
+        
+    def __str__(self):
+        return self.nome
