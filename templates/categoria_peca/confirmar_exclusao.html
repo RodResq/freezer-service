@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card iceberg-card border-danger">
+                <div class="card-header bg-transparent border-bottom border-danger">
+                    <h3 class="text-danger mb-0">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        {{ titulo }}
+                    </h3>
+                </div>
+                <div class="card-body text-center">
+                    {% if pecas_associadas > 0 %}
+                        <div class="alert alert-danger">
+                            <h5><i class="bi bi-x-circle-fill me-2"></i>Exclusão não permitida</h5>
+                            <p class="mb-0">
+                                Esta categoria não pode ser excluída pois possui 
+                                <strong>{{ pecas_associadas }}</strong> peça{{ pecas_associadas|pluralize:"s" }} associada{{ pecas_associadas|pluralize:"s" }}.
+                            </p>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Para excluir esta categoria, primeiro você deve:
+                        </p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-arrow-right text-info me-2"></i>Remover ou reclassificar todas as peças associadas</li>
+                            <li><i class="bi bi-arrow-right text-info me-2"></i>Ou atribuir essas peças a outras categorias</li>
+                        </ul>
+                        
+                        <div class="d-flex justify-content-center mt-4">
+                            <a href="{% url 'listar_categorias' %}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i>Voltar
+                            </a>
+                        </div>
+                    {% else %}
+                        <p class="fs-5 mb-4">
+                            Tem certeza que deseja excluir a categoria?
+                        </p>
+                        
+                        <div class="alert alert-warning">
+                            <p class="mb-1"><strong>Categoria:</strong> {{ categoria.nome }}</p>
+                            <p class="mb-0"><strong>ID:</strong> {{ categoria.id }}</p>
+                        </div>
+                        
+                        <p class="text-danger mb-4">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Esta ação não poderá ser desfeita!
+                        </p>
+                        
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-center mt-4">
+                                <a href="{% url 'listar_categorias' %}" class="btn btn-secondary me-3">
+                                    <i class="bi bi-arrow-left me-1"></i>Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash-fill me-1"></i>Confirmar Exclusão
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

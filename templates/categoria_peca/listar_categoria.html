@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Cabeçalho e botão de adicionar -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-light">
+            <i class="bi bi-tags-fill text-info me-2"></i>
+            {{ titulo }}
+        </h2>
+        <a href="{% url 'cadastrar_categoria' %}" class="btn btn-info">
+            <i class="bi bi-plus-circle me-2"></i>Nova Categoria
+        </a>
+    </div>
+
+    {% include 'partials/_messages.html' %}
+
+    <div class="card search-card mb-4">
+        <div class="card-body p-3">
+            <form action="{% url 'listar_categorias' %}" method="GET" class="search-form">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar categoria..." 
+                           value="{{ search|default:'' }}">
+                    <button type="submit" class="btn btn-search">
+                        <i class="bi bi-search me-1"></i>Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card iceberg-card">
+        <div class="card-body p-4">
+            {% if categorias %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-dark table-bordered">
+                        <thead class="text-info">
+                            <tr>
+                                <th style="width: 50px;">ID</th>
+                                <th>Nome da Categoria</th>
+                                <th style="width: 120px;" class="text-center">Peças</th>
+                                <th style="width: 150px;" class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for categoria in categorias %}
+                                <tr>
+                                    <td>{{ categoria.id }}</td>
+                                    <td>
+                                        <i class="bi bi-tag-fill text-info me-2"></i>
+                                        {{ categoria.nome }}
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-secondary">{{ categoria.peca_set.count }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="{% url 'detalhar_categoria' categoria.id %}" class="btn btn-sm btn-info me-1" 
+                                               title="Detalhes">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>
+                                            <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-sm btn-warning me-1" 
+                                               title="Editar">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                            <a href="{% url 'excluir_categoria' categoria.id %}" class="btn btn-sm btn-danger" 
+                                               title="Excluir">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Total de categorias: {{ categorias.count }}
+                    </small>
+                </div>
+            {% else %}
+                <div class="alert alert-info m-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    {% if search %}
+                        Nenhuma categoria encontrada para "{{ search }}".
+                    {% else %}
+                        Nenhuma categoria cadastrada.
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
