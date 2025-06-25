@@ -6,7 +6,7 @@ from .forms import LocalArmazenamentoForm
 # Create your views here.
 
 # @login_required
-def listar_locais(request):
+def listar(request):
     """
     Exibe a lista de todos os locais de armazenamento cadastrados
     """
@@ -20,7 +20,7 @@ def listar_locais(request):
     
     
 @login_required
-def detalhar_local(request, local_id):
+def detalhar(request, local_id):
     """
         Exibe os detalhes de um local de armazenamento específico
     """
@@ -32,7 +32,7 @@ def detalhar_local(request, local_id):
     return render(request, 'local_armazenamento/detalhar_local.html', context)
 
 @login_required
-def cadastrar_local(request):
+def cadastrar(request):
     """
         Exibe o formulário para cadastrar um novo local de armazenamento
     """
@@ -41,7 +41,7 @@ def cadastrar_local(request):
         if form.is_valid():
             local = form.save()
             messages.success(request, 'Local de armazenamento cadastrado com sucesso!')
-            return redirect('listar_locais')
+            return redirect('local_armazenamento:listar')
     else:
         form = LocalArmazenamentoForm()
             
@@ -56,7 +56,7 @@ def cadastrar_local(request):
     
 
 @login_required
-def editar_local_armazenamento(request, local_id):
+def editar(request, local_id):
     """
         Exibe o formulário para editar um local de armazenamento existente
     """
@@ -67,7 +67,7 @@ def editar_local_armazenamento(request, local_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Local de armazenamento atualizado com sucesso!')
-            return redirect('listar_locais')
+            return redirect('local_armazenamento:listar')
     else:
         form = LocalArmazenamentoForm(instance=local)
         
@@ -82,7 +82,7 @@ def editar_local_armazenamento(request, local_id):
     return render(request, 'local_armazenamento/form_local.html', context)
     
 @login_required
-def excluir_local(request, local_id):
+def excluir(request, local_id):
     """
         Exclui um local de armazenamento
     """
@@ -94,7 +94,7 @@ def excluir_local(request, local_id):
             messages.success(request, 'Local de armazenamento excluído com sucesso!')
         except Exception as e:
             messages.error(request, f'Erro ao excluir local de armazenamento: {str(e)}')
-        return redirect('listar_locais')
+        return redirect('local_armazenamento:listar')
     
     context = {
         'local': local,

@@ -7,7 +7,7 @@ from .forms import CategoriaPecaForm
 
 
 @login_required
-def listar_categorias(request):
+def listar(request):
     search = request.GET.get('search', '')
     categorias = CategoriaPeca.objects.all()
     
@@ -25,7 +25,7 @@ def listar_categorias(request):
     return render(request, 'categoria_peca/listar_categoria.html', context)
 
 
-def detalhar_categoria(request, categoria_id):
+def detalhar(request, categoria_id):
     categoria = get_object_or_404(CategoriaPeca, pk=categoria_id)
     total_pecas = categoria.peca_set.count()
     
@@ -39,7 +39,7 @@ def detalhar_categoria(request, categoria_id):
 
 
 @login_required
-def cadastrar_categoria(request):
+def cadastrar(request):
     if request.method == 'POST':
         form = CategoriaPecaForm(request.POST)
         if form.is_valid():
@@ -58,7 +58,7 @@ def cadastrar_categoria(request):
     return render(request, 'categoria_peca/form_categoria.html', context)
 
 @login_required
-def editar_categoria(request, categoria_id):
+def editar(request, categoria_id):
     categoria = get_object_or_404(CategoriaPeca, pk=categoria_id)
     
     if request.method == 'POST':
@@ -66,7 +66,7 @@ def editar_categoria(request, categoria_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Categoria de peça atualizada com sucesso!')
-            return redirect('listar_categorias')
+            return redirect('categoria_peca:listar')
     else:
         form = CategoriaPecaForm(instance=categoria)
         
@@ -82,21 +82,21 @@ def editar_categoria(request, categoria_id):
 
 
 @login_required
-def excluir_categoria(request, categoria_id):
+def excluir(request, categoria_id):
     categoria = get_object_or_404(CategoriaPeca, pk=categoria_id)
     pecas_associadas = categoria.peca_set.count()
     
     if request.method == 'POST':
         if pecas_associadas > 0:
             messages.error(request, f'Não é possível excluir esta categoria pois existem {pecas_associadas} peça(s) associada(s) a ela.')
-            return redirect('listar_categorias')
+            return redirect('categoria_peca:listar')
         
         try:
             categoria.delete()
             messages.success(request, 'Categoria de peça excluída com sucesso!')
         except Exception as e:
             messages.error(request, f'Erro ao excluir categoria: {str(e)}')
-        return redirect('listar_categorias')
+        return redirect('categoria_peca:listar')
     
     context = {
         'categoria': categoria,

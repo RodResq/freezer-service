@@ -14,13 +14,18 @@
                     <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if 'locais-armazenamento' in request.path %}active{% endif %}" href="{% url 'listar_locais' %}">
+                    <a class="nav-link {% if 'locais-armazenamento' in request.path %}active{% endif %}" href="{% url 'local_armazenamento:listar' %}">
                         <i class="bi bi-geo-alt me-1"></i>Locais
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if 'categorias-pecas' in request.path %}active{% endif %}" href="{% url 'listar_categorias' %}">
+                    <a class="nav-link {% if 'categorias-pecas' in request.path %}active{% endif %}" href="{% url 'categoria_peca:listar' %}">
                         <i class="bi bi-tags me-1"></i>Categorias
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'peca' in request.path %}active{% endif %}" href="{% url 'peca:cadastrar' %}">
+                        <i class="bi bi-gear"></i>Peças
                     </a>
                 </li>
             </ul>
