@@ -15,9 +15,7 @@
     <link rel="stylesheet" href="{% static 'styles/index.css' %}">
 </head>
 <body>
-    <div class="snowfall-container">
-        <!-- Flocos de neve serão inseridos aqui via JavaScript -->
-    </div>
+    <div class="snowfall-container"></div>
 
     {% include 'partials/_navbar.html' %}
     
@@ -27,8 +25,7 @@
     
     {% include 'partials/_footer.html' %}
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     
     <!-- Script para efeito de neve -->
     <script>

@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,11 +12,11 @@ def listar(request):
 @login_required
 def cadastrar(request):
     if request.method == 'POST':
-        form = PecaForm(request.POST)
+        form = PecaForm(request.POST, request.FILES)
         if form.is_valid():
             peca = form.save()
-            messages(request, 'Peça armazenada com sucesso!')
-            return redirect('peca:listar')
+            messages.success(request, 'Peça armazenada com sucesso!')
+            return redirect('local_armazenamento:listar')
     else:
         form = PecaForm()
         

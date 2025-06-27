@@ -13,63 +13,178 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form method="post" novalidate>
+                    <form method="post" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
                         
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <label for="{{ form.nome.id_for_label }}" class="form-label text-info">
-                                    {{ form.nome.label }}
+                                    <i class="bi bi-gear me-1"></i>{{ form.nome.label }}
                                 </label>
                                 {{ form.nome }}
                                 {% if form.nome.errors %}
                                     <div class="text-danger mt-1">
-                                        {{ form.nome.errors }}
+                                        {% for error in form.nome.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
                             </div>
                             <div class="col-md-6">
                                 <label for="{{ form.codigo.id_for_label }}" class="form-label text-info">
-                                    {{ form.codigo.label }}
+                                    <i class="bi bi-upc me-1"></i>{{ form.codigo.label }}
                                 </label>
                                 {{ form.codigo }}
                                 {% if form.codigo.errors %}
                                     <div class="text-danger mt-1">
-                                        {{ form.codigo.errors }}
+                                        {% for error in form.codigo.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.descricao.id_for_label }}" class="form-label text-info">
+                                <i class="bi bi-text-paragraph me-1"></i>{{ form.descricao.label }}
+                            </label>
+                            {{ form.descricao }}
+                            {% if form.descricao.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.descricao.errors %}
+                                        <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <label for="{{ form.qtd_minima.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-123 me-1"></i>{{ form.qtd_minima.label }}
+                                </label>
+                                {{ form.qtd_minima }}
+                                {% if form.qtd_minima.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.qtd_minima.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <label for="{{ form.unidade.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-rulers me-1"></i>{{ form.unidade.label }}
+                                </label>
+                                {{ form.unidade }}
+                                {% if form.unidade.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.unidade.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">{{ form.unidade.help_text }}</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.valor.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-currency-dollar me-1"></i>{{ form.valor.label }}
+                                </label>
+                                {{ form.valor }}
+                                {% if form.valor.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.valor.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-md-6 mb-5 mb-md-0">
-                                <label for="{{ form.descricao.id_for_label }}" class="form-label text-info">
-                                    {{ form.descricao.label }}
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <label for="{{ form.id_categoria_peca.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-tags me-1"></i>{{ form.id_categoria_peca.label }} *
                                 </label>
-                                {{ form.descricao }}
-                                {% if form.descricao.errors %}
+                                {{ form.id_categoria_peca }}
+                                {% if form.id_categoria_peca.errors %}
                                     <div class="text-danger mt-1">
-                                        {{ form.descricao.errors }}
+                                        {% for error in form.id_categoria_peca.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
                             </div>
-                            <div class="col-md-6 mb-1 mb-md-0">
-                                <label for="{{ form.descricao.id_for_label }}" class="form-label text-info">
-                                    {{ form.qtd_minima.label }}
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <label for="{{ form.id_local_armazenamento.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-geo-alt me-1"></i>{{ form.id_local_armazenamento.label }}
                                 </label>
-                                {{ form.qtd_minima }}
-                                {% if form.qtd_minima.errors %}
+                                {{ form.id_local_armazenamento }}
+                                {% if form.id_local_armazenamento.errors %}
                                     <div class="text-danger mt-1">
-                                        {{ form.qtd_minima.errors }}
+                                        {% for error in form.id_local_armazenamento.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.id_fornecedor.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-truck me-1"></i>{{ form.id_fornecedor.label }}
+                                </label>
+                                {{ form.id_fornecedor }}
+                                {% if form.id_fornecedor.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.id_fornecedor.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
                             </div>
                         </div>
 
-                        <!-- Campo de Imagem -->
+                        <!-- Campo de Upload de Foto com Preview -->
+                        <div class="mb-4">
+                            <label for="{{ form.foto.id_for_label }}" class="form-label text-info">
+                                <i class="bi bi-camera me-1"></i>Foto da Peça
+                            </label>
+                            
+                            <!-- Área de Preview -->
+                            <div class="photo-preview-container mb-3" id="photoPreviewContainer" style="display: none;">
+                                <div class="card bg-transparent border-secondary">
+                                    <div class="card-body text-center p-3">
+                                        <img id="photoPreview" src="" alt="Preview da foto" class="img-fluid rounded" style="max-height: 200px; max-width: 100%;">
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-danger" id="removePhoto">
+                                                <i class="bi bi-trash me-1"></i>Remover Foto
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Input de Upload -->
+                            <div class="upload-area" id="uploadArea">
+                                {{ form.foto }}
+                                <div class="upload-placeholder mt-2 p-4 text-center border border-2 border-dashed rounded" style="border-color: #5590a6 !important; background-color: rgba(255, 255, 255, 0.05);">
+                                    <i class="bi bi-cloud-upload text-info" style="font-size: 2rem;"></i>
+                                    <p class="mt-2 mb-1 text-info">Clique para selecionar uma foto</p>
+                                    <small class="text-muted">{{ form.foto.help_text }}</small>
+                                </div>
+                            </div>
+                            
+                            {% if form.foto.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.foto.errors %}
+                                        <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
 
                         <div class="d-flex justify-content-between mt-4">
-                            <a href="{% url 'local_armazenamento:listar' %}" class="btn btn-secondary">
+                            <a href="{% url 'peca:listar' %}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-left me-1"></i>Voltar
                             </a>
                             <button type="submit" class="btn btn-info">
@@ -78,8 +193,138 @@
                         </div>
                     </form>
                 </div>
+                
+                <div class="card-footer bg-transparent border-top border-info">
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Os campos marcados com * são obrigatórios
+                    </small>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+/* Estilos específicos para o upload de foto */
+.upload-area {
+    transition: all 0.3s ease;
+}
+
+.upload-placeholder {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-placeholder:hover {
+    background-color: rgba(168, 216, 234, 0.1) !important;
+    border-color: #a8d8ea !important;
+}
+
+.photo-preview-container img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #5590a6;
+}
+
+/* Esconder o input file padrão */
+#id_foto {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Estilo para drag and drop */
+.upload-placeholder.dragover {
+    background-color: rgba(168, 216, 234, 0.2) !important;
+    border-color: #a8d8ea !important;
+    transform: scale(1.02);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('id_foto');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoPreviewContainer = document.getElementById('photoPreviewContainer');
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadPlaceholder = document.querySelector('.upload-placeholder');
+    const removePhotoBtn = document.getElementById('removePhoto');
+
+    // Função para mostrar preview da imagem
+    function showImagePreview(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoPreview.src = e.target.result;
+                photoPreviewContainer.style.display = 'block';
+                uploadArea.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Função para remover preview
+    function removeImagePreview() {
+        photoPreview.src = '';
+        photoPreviewContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                showImagePreview(file);
+            }
+        });
+    }
+
+    // Event listener para remover foto
+    removePhotoBtn.addEventListener('click', function() {
+        removeImagePreview();
+    });
+
+    // Drag and drop functionality
+    uploadPlaceholder.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadPlaceholder.classList.add('dragover');
+    });
+
+    uploadPlaceholder.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadPlaceholder.classList.remove('dragover');
+    });
+
+    uploadPlaceholder.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadPlaceholder.classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            const file = files[0];
+            if (file.type.startsWith('image/')) {
+                fileInput.files = files;
+                showImagePreview(file);
+            } else {
+                alert('Por favor, selecione apenas arquivos de imagem.');
+            }
+        }
+    });
+
+    // Clique na área de upload para abrir seletor de arquivo
+    uploadPlaceholder.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // Verificar se já existe uma imagem (para modo de edição)
+    {% if form.instance.foto %}
+        photoPreview.src = "{{ form.instance.foto.url }}";
+        photoPreviewContainer.style.display = 'block';
+        uploadArea.style.display = 'none';
+    {% endif %}
+});
+</script>
 {% endblock %}
