@@ -4,5 +4,6 @@ from peca.models import Peca
 # Register your models here.
 @admin.register(Peca)
 class ListandoPecas(admin.ModelAdmin):
-    list_display = ("nome", "codigo", "descricao", "qtd_minima", "unidade")
+    list_display = ("id", "nome", "codigo", "descricao", "qtd_minima", "unidade", "foto", "valor", "id_categoria_peca", "id_local_armazenamento", "id_fornecedor")
+    ordering = ("id"), 
     list_per_page = 10   
