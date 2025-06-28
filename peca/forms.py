@@ -54,7 +54,7 @@ class PecaForm(forms.ModelForm):
             'nome': 'Nome',
             'codigo': 'Código',
             'descricao': 'Descrição',
-            'qtd_minima': 'Quantidade Mínima',
+            'qtd_minima': 'Quantidade Mínima do estoque',
             'unidade': 'Unidade de Medida',
             'valor': 'Valor Unitário (R$)',
             'id_categoria_peca': 'Categoria',

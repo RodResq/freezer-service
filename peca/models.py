@@ -18,6 +18,10 @@ class Peca(models.Model):
     id_fornecedor = models.ForeignKey(Fornecedor, on_delete=models.SET_NULL, blank=True, null=True)
     
     
+    def __str__(self):
+        return f"Peca: nome: {self.nome}, descricao: {self.descricao}, codigo: {self.codigo}"
+    
+    
     class Meta:
         db_table = 'peca'
         ordering = ['nome',]
