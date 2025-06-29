@@ -127,7 +127,7 @@
                     </div>
                 {% endif %}
                 
-                <form method="post" action="{% url 'login' %}">
+                <form method="post" action="{% url 'users:login' %}">
                     {% csrf_token %}
                     <div class="form-floating">
                         <input type="text" class="form-control" id="username" name="username" placeholder="Nome de usuário" required>
@@ -146,11 +146,13 @@
                     <button class="btn btn-login" type="submit">
                         <i class="fas fa-sign-in-alt me-2"></i>Entrar
                     </button>
-                    <input type="hidden" name="next" value="{{ next }}">
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% endif %}
                 </form>
                 <div class="login-footer">
-                    <p>Não tem uma conta? <a href="{% url 'register' %}">Registre-se</a></p>
-                    <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
+                    <p>Não tem uma conta? <a href="{% url 'users:register' %}">Registre-se</a></p>
+                    <p><a href="{% url 'users:password_reset' %}">Esqueceu sua senha?</a></p>
                     <p><a href="{% url 'index' %}"><i class="fas fa-home me-1"></i>Voltar para a página inicial</a></p>
                 </div>
             </div>

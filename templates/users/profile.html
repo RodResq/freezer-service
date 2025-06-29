@@ -235,10 +235,10 @@
                             <i class="fas fa-user me-2"></i>{{ user.username }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style="background-color: rgba(21, 32, 43, 0.9); backdrop-filter: blur(10px);">
-                            <li><a class="dropdown-item text-light active" href="{% url 'profile' %}"><i class="fas fa-user-circle me-2"></i>Meu Perfil</a></li>
+                            <li><a class="dropdown-item text-light active" href="{% url 'users:profile' %}"><i class="fas fa-user-circle me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item text-light" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
                             <li><hr class="dropdown-divider" style="border-color: rgba(168, 216, 234, 0.2);"></li>
-                            <li><a class="dropdown-item text-light" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+                            <li><a class="dropdown-item text-light" href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -322,7 +322,7 @@
                         <h4 class="mb-0"><i class="fas fa-lock me-2"></i>Segurança</h4>
                     </div>
                     <div class="profile-card-body">
-                        <a href="{% url 'password_reset' %}" class="btn btn-outline-info mb-3">
+                        <a href="{% url 'users:password_reset' %}" class="btn btn-outline-info mb-3">
                             <i class="fas fa-key me-2"></i>Alterar Senha
                         </a>
                         

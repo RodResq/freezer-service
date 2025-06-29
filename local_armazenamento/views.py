@@ -5,7 +5,7 @@ from .models import LocalArmazenamento
 from .forms import LocalArmazenamentoForm
 # Create your views here.
 
-# @login_required
+@login_required
 def listar(request):
     """
     Exibe a lista de todos os locais de armazenamento cadastrados

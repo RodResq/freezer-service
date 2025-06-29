@@ -10,7 +10,7 @@ from .forms import PecaForm
 import os
 
 
-
+@login_required
 def listar(request):
     search = request.GET.get('search', '')
     categoria = request.GET.get('categoria', '')

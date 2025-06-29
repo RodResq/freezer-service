@@ -66,7 +66,7 @@ def logout_view(request):
     """
     logout(request)
     messages.info(request, 'Você foi desconectado.')
-    return redirect('login')
+    return redirect('users:login')
 
 @login_required
 def profile_view(request):

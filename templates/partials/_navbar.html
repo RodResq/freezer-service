@@ -37,14 +37,14 @@
                             <i class="bi bi-person-fill me-1"></i>{{ user.username }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style="background-color: rgba(21, 32, 43, 0.9); backdrop-filter: blur(10px);">
-                            <li><a class="dropdown-item text-light" href="{% url 'profile' %}"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+                            <li><a class="dropdown-item text-light" href="{% url 'users:profile' %}"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
                             <li><a class="dropdown-item text-light" href="#"><i class="bi bi-gear me-2"></i>Configurações</a></li>
                             <li><hr class="dropdown-divider" style="border-color: rgba(168, 216, 234, 0.2);"></li>
-                            <li><a class="dropdown-item text-light" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                            <li><a class="dropdown-item text-light" href="{% url 'users:logout' %}"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
                         </ul>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-info rounded-pill">
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-info rounded-pill">
                         <i class="bi bi-box-arrow-in-right me-1"></i>Login
                     </a>
                 {% endif %}

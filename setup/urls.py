@@ -24,7 +24,7 @@ from gerencia.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls', namespace='users')),
     path('locais-armazenamento/', include('local_armazenamento.urls', namespace='local_armazenamento')),
     path('categorias-pecas/', include('categoria_peca.urls', namespace='categorias_peca')),
     path('pecas', include('peca.urls', namespace='peca'))
