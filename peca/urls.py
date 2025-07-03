@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import listar, cadastrar
+from .views import listar, cadastrar, detalhar, editar, excluir
 
 
 app_name = 'peca'
@@ -7,7 +7,7 @@ app_name = 'peca'
 urlpatterns = [
     path('', listar, name='listar'),
     path('cadastrar/', cadastrar, name='cadastrar'),
-    # path('detalhar/<int:categoria_id>/', detalhar_peca, name="detalhar_categoria"),
-    # path('editar/<int:categoria_id>/', editar_peca, name="editar_categoria"),
-    # path('excluir/<int:categoria_id>/', excluir_peca, name="excluir_categoria")
+    path('detalhar/<int:peca_id>/', detalhar, name="detalhar"),
+    path('editar/<int:peca_id>/', editar, name="editar"),
+    path('excluir/<int:peca_id>/', excluir, name="excluir")
 ]

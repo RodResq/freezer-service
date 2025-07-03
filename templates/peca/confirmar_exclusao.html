@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card iceberg-card border-danger">
+                <div class="card-header bg-transparent border-bottom border-danger">
+                    <h3 class="text-danger mb-0">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        {{ titulo }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center mb-3">
+                            {% if peca.foto %}
+                                <img src="{{ peca.foto.url }}" alt="{{ peca.nome }}" 
+                                     class="img-fluid rounded shadow" 
+                                     style="max-height: 200px; border: 2px solid #dc3545;">
+                            {% else %}
+                                <div class="d-flex align-items-center justify-content-center bg-secondary rounded shadow" 
+                                     style="height: 200px; border: 2px solid #dc3545;">
+                                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <p class="fs-5 mb-4 text-center">
+                                Tem certeza que deseja excluir esta peça?
+                            </p>
+                            
+                            <div class="alert alert-warning">
+                                <h6 class="mb-3"><i class="bi bi-info-circle me-2"></i>Informações da Peça:</h6>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Nome:</strong> {{ peca.nome }}
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Código:</strong> {{ peca.codigo|default:"Não informado" }}
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Categoria:</strong> {{ peca.id_categoria_peca.nome }}
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong>Valor:</strong> 
+                                        {% if peca.valor %}
+                                            R$ {{ peca.valor|floatformat:2 }}
+                                        {% else %}
+                                            Não informado
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if peca.descricao %}
+                                    <div class="mt-2">
+                                        <strong>Descrição:</strong> {{ peca.descricao|truncatechars:100 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% with estoque=peca.estoque_set.first %}
+                        {% if estoque and estoque.quantidade > 0 %}
+                            <div class="alert alert-danger">
+                                <h6><i class="bi bi-exclamation-triangle-fill me-2"></i>Atenção!</h6>
+                                <p class="mb-1">
+                                    Esta peça possui <strong>{{ estoque.quantidade }}</strong> unidade{{ estoque.quantidade|pluralize:"s" }} em estoque.
+                                </p>
+                                <p class="mb-0">
+                                    Ao excluir a peça, todas as informações de estoque também serão removidas.
+                                </p>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    {% with movimentacoes=peca.movimentacaoestoque_set.count %}
+                        {% if movimentacoes > 0 %}
+                            <div class="alert alert-warning">
+                                <h6><i class="bi bi-clock-history me-2"></i>Histórico de Movimentações</h6>
+                                <p class="mb-0">
+                                    Esta peça possui <strong>{{ movimentacoes }}</strong> movimentação{{ movimentacoes|pluralize:"ões" }} 
+                                    registrada{{ movimentacoes|pluralize:"s" }} no histórico.
+                                </p>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <div class="alert alert-danger">
+                        <p class="mb-0">
+                            <i class="bi bi-info-circle me-1"></i>
+                            <strong>Esta ação não poderá ser desfeita!</strong> 
+                            Todos os dados relacionados a esta peça serão permanentemente removidos.
+                        </p>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'peca:listar' %}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash-fill me-1"></i>Confirmar Exclusão
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.alert h6 {
+    color: inherit;
+    margin-bottom: 0.75rem;
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #dc3545;
+}
+</style>
+{% endblock %}

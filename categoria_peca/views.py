@@ -45,6 +45,7 @@ def cadastrar(request):
         if form.is_valid():
             categoria = form.save()
             messages.success(request, 'Categoria de peça cadastrada com sucesso!')
+            return redirect('categoria_peca:listar')
     else:
         form = CategoriaPecaForm()
         

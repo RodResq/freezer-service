@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
@@ -84,3 +84,74 @@ def cadastrar(request):
     }
     
     return render(request, 'peca/form_peca.html', context)
+
+
+@login_required
+def detalhar(request, peca_id):
+    peca = get_object_or_404(Peca, pk=peca_id)
+    
+    context = {
+        'peca': peca,
+        'titulo': f'Detalhes da Peça: {peca.nome}'
+    }
+    
+    return render(request, 'peca/detalhar_peca.html', context)
+
+
+@login_required
+def editar(request, peca_id):
+    peca = get_object_or_404(Peca, pk=peca_id)
+    
+    if request.method == 'POST':
+        form = PecaForm(request.POST, request.FILES, instance=peca)
+        if form.is_valid():
+            peca_editada = form.save()
+            
+            if 'foto' in request.FILES and peca_editada.foto:
+                extensao_foto = os.path.splitext(peca_editada.foto.name)[1]
+                timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+                nome_limpo = peca_editada.nome.replace(' ', '_').replace('/', '_').replace('\\', '_')
+                nome_limpo = ''.join(c for c in nome_limpo if c.isalnum() or c in ('_', '-'))
+                novo_nome = f"{nome_limpo}_{peca_editada.id}_{timestamp}{extensao_foto}"
+                
+                conteudo_arquivo_foto = peca_editada.foto.read()
+                peca_editada.foto.delete(save=False)
+                peca_editada.foto.save(novo_nome, ContentFile(conteudo_arquivo_foto), save=True)
+                
+            messages.success(request, 'Peça atualizada com sucesso!')
+            return redirect('peca:listar')
+    else:
+        form = PecaForm(instance=peca)
+        
+    context = {
+        'form': form,
+        'titulo': 'Editar Peça',
+        'botao': 'Atualizar',
+        'icone': 'bi-pencil-square',
+        'peca_id': peca_id
+    }
+    
+    return render(request, 'peca/form_peca.html', context)
+
+
+@login_required
+def excluir(request, peca_id):
+    peca = get_object_or_404(Peca, pk=peca_id)
+    if request.method == 'POST':
+        try:
+            if peca.foto:
+                peca.foto.delete()
+                
+            peca.delete()
+            messages.success(request, 'Peça excluida com sucesso!')
+        except Exception as e:
+            messages.error(request, f'Erro ao excluir peca {str(e)}')
+        
+        return redirect('peca:listar')
+    
+    context = {
+        'peca': peca,
+        'titulo': 'Confirmar Exclusão'
+    }
+        
+    return render(request, 'peca/confirmar_exclusao.html', context)

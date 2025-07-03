@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card iceberg-card">
+                <div class="card-header bg-transparent border-bottom border-info">
+                    <h3 class="text-info mb-0">
+                        <i class="bi bi-gear-fill me-2"></i>
+                        {{ titulo }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Coluna da foto -->
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                {% if peca.foto %}
+                                    <img src="{{ peca.foto.url }}" alt="{{ peca.nome }}" 
+                                         class="img-fluid rounded shadow-lg" 
+                                         style="max-height: 300px; border: 3px solid #5590a6;">
+                                {% else %}
+                                    <div class="d-flex align-items-center justify-content-center bg-secondary rounded shadow-lg" 
+                                         style="height: 300px; border: 3px solid #5590a6;">
+                                        <div class="text-center">
+                                            <i class="bi bi-image text-muted" style="font-size: 4rem;"></i>
+                                            <p class="text-muted mt-2">Sem foto</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Coluna das informações -->
+                        <div class="col-md-8">
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-gear me-1"></i>Nome da Peça
+                                    </h5>
+                                    <p class="fs-5 text-light">{{ peca.nome }}</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-upc me-1"></i>Código
+                                    </h5>
+                                    <p class="fs-5">
+                                        {% if peca.codigo %}
+                                            <code class="text-info fs-6">{{ peca.codigo }}</code>
+                                        {% else %}
+                                            <span class="text-muted">Não informado</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-tags me-1"></i>Categoria
+                                    </h5>
+                                    <span class="badge bg-info fs-6">{{ peca.id_categoria_peca.nome }}</span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-currency-dollar me-1"></i>Valor Unitário
+                                    </h5>
+                                    <p class="fs-5">
+                                        {% if peca.valor %}
+                                            <strong class="text-success">R$ {{ peca.valor|floatformat:2 }}</strong>
+                                        {% else %}
+                                            <span class="text-muted">Não informado</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-rulers me-1"></i>Unidade
+                                    </h5>
+                                    <p class="fs-5 text-light">{{ peca.unidade|default:"Não informado" }}</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-123 me-1"></i>Quantidade Mínima
+                                    </h5>
+                                    <p class="fs-5 text-light">{{ peca.qtd_minima|default:0 }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-geo-alt me-1"></i>Local de Armazenamento
+                                    </h5>
+                                    {% if peca.id_local_armazenamento %}
+                                        <p class="fs-6 text-light">
+                                            <strong class="text-light">Setor:</strong> {{ peca.id_local_armazenamento.setor|default:"-" }}<br>
+                                            <strong class="text-light">Estante:</strong> {{ peca.id_local_armazenamento.estante|default:"-" }}<br>
+                                            <strong class="text-light">Prateleira:</strong> {{ peca.id_local_armazenamento.prateleira|default:"-" }}
+                                        </p>
+                                    {% else %}
+                                        <span class="text-muted">Não informado</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h5 class="text-info">
+                                        <i class="bi bi-truck me-1"></i>Fornecedor
+                                    </h5>
+                                    <p class="fs-6 text-light">
+                                        {% if peca.id_fornecedor %}
+                                            <strong class"text-light">{{ peca.id_fornecedor.nome }}</strong>
+                                            {% if peca.id_fornecedor.contato %}
+                                                <br><small class="text-muted">{{ peca.id_fornecedor.contato }}</small>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-light">Não informado</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Descrição -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-info">
+                                <i class="bi bi-text-paragraph me-1"></i>Descrição
+                            </h5>
+                            <div class="p-3 bg-dark rounded border text-light">
+                                <p class="mb-0">{{ peca.descricao|linebreaks|default:"Não informado" }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informações de estoque -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-info">
+                                <i class="bi bi-box-seam me-1"></i>Informações de Estoque
+                            </h5>
+                            <div class="row">
+                                {% with estoque=peca.estoque_set.first %}
+                                    <div class="col-md-4">
+                                        <div class="card bg-transparent border-secondary">
+                                            <div class="card-body text-center">
+                                                <h3 class="{% if estoque.quantidade <= peca.qtd_minima %}text-danger{% else %}text-success{% endif %} mb-2">
+                                                    {{ estoque.quantidade|default:0 }}
+                                                </h3>
+                                                <p class="mb-0 text-light">Quantidade em Estoque</p>
+                                                {% if estoque.data_hora_atualizacao %}
+                                                    <small class="text-muted">
+                                                        Atualizado em: {{ estoque.data_hora_atualizacao|date:"d/m/Y H:i" }}
+                                                    </small>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card bg-transparent border-secondary">
+                                            <div class="card-body text-center">
+                                                <h3 class="text-warning mb-2">{{ peca.qtd_minima|default:0 }}</h3>
+                                                <p class="mb-0 text-light">Quantidade Mínima</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card bg-transparent border-secondary">
+                                            <div class="card-body text-center">
+                                                <h3 class="text-info mb-2">
+                                                    {% if estoque.quantidade and peca.qtd_minima %}
+                                                        {% widthratio estoque.quantidade peca.qtd_minima 100 %}%
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                </h3>
+                                                <p class="mb-0 text-light">Nível do Estoque</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de ação -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% url 'peca:listar' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Voltar
+                        </a>
+                        <div>
+                            <a href="{% url 'peca:listar' %}" class="btn btn-warning me-2">
+                                <i class="bi bi-pencil-fill me-1"></i>Editar
+                            </a>
+                            <a href="{% url 'peca:listar' %}" class="btn btn-danger">
+                                <i class="bi bi-trash-fill me-1"></i>Excluir
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+code {
+    background-color: rgba(168, 216, 234, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.badge {
+    font-size: 0.9em;
+    padding: 8px 12px;
+}
+</style>
+{% endblock %}

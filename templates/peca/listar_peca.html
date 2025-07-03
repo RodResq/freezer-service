@@ -120,15 +120,15 @@
                                     <td class="text-center">{{ peca.unidade|default:"-" }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <a href="" class="btn btn-sm btn-info me-1" 
+                                            <a href="{% url 'peca:detalhar' peca.id %}" class="btn btn-sm btn-info me-1" 
                                                title="Detalhes">
                                                 <i class="bi bi-eye-fill"></i>
                                             </a>
-                                            <a href="" class="btn btn-sm btn-warning me-1" 
+                                            <a href="{% url 'peca:editar' peca.id %}" class="btn btn-sm btn-warning me-1" 
                                                title="Editar">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <a href="" class="btn btn-sm btn-danger" 
+                                            <a href="{% url 'peca:excluir' peca.id %}" class="btn btn-sm btn-danger" 
                                                title="Excluir">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>
