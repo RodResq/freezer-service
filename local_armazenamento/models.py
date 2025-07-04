@@ -12,4 +12,7 @@ class LocalArmazenamento(models.Model):
         db_table = 'local_armazenamento'
         ordering = ['setor']
         verbose_name_plural = 'locais_armazenamento'
+        
+    def __str__(self):
+        return self.setor
     

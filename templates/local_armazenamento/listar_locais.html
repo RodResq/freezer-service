@@ -39,6 +39,7 @@
                     <table class="table table-hover table-dark table-bordered">
                         <thead class="text-info">
                             <tr>
+                                <th style="width: 60px;">Cor</th>
                                 <th>Setor</th>
                                 <th>Estante</th>
                                 <th>Prateleira</th>
@@ -49,6 +50,12 @@
                         <tbody>
                             {% for local in locais %}
                                 <tr>
+                                    <td class="text-center">
+                                        <div class="color-indicator" 
+                                             style="background-color: {{ local.cor_referencia|default:'#5590a6' }};"
+                                             title="Cor de referência: {{ local.cor_referencia|default:'#5590a6' }}">
+                                        </div>
+                                    </td>
                                     <td>{{ local.setor|default:"-" }}</td>
                                     <td>{{ local.estante|default:"-" }}</td>
                                     <td>{{ local.prateleira|default:"-" }}</td>
@@ -82,4 +89,42 @@
         </div>
     </div>
 </div>
+<style>
+.color-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.color-indicator:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Melhorias na tabela */
+.table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(168, 216, 234, 0.1) !important;
+}
+
+.table-hover tbody tr:hover .color-indicator {
+    transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .color-indicator {
+        width: 25px;
+        height: 25px;
+    }
+}
+</style>
 {% endblock %}

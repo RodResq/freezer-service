@@ -26,6 +26,22 @@
                             <h5 class="text-info">Prateleira</h5>
                             <p class="fs-5">{{ local.prateleira|default:"Não informado" }}</p>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <h5 class="text-info">
+                                <i class="bi bi-palette me-1"></i>Cor de Referência
+                            </h5>
+                            <div class="color-detail-container">
+                                <div class="color-detail-indicator" 
+                                     style="background-color: {{ local.cor_referencia|default:'#5590a6' }};"
+                                     title="Cor de referência">
+                                </div>
+                                <div class="color-detail-info">
+                                    <span class="color-code">{{ local.cor_referencia|default:"#5590a6" }}</span>
+                                    <br>
+                                    <small class="text-muted">Código RGB Hexadecimal</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-4">
@@ -51,4 +67,84 @@
         </div>
     </div>
 </div>
+<style>
+/* Estilos para a exibição da cor de referência */
+.color-detail-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.color-detail-indicator {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.color-detail-indicator:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.color-detail-info {
+    flex-grow: 1;
+}
+
+.color-code {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #a8d8ea;
+    background-color: rgba(168, 216, 234, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #5590a6;
+}
+
+.description-box {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #5590a6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+/* Melhorias visuais gerais */
+.card-body h5 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.card-body p {
+    margin-bottom: 0;
+    color: #e0f7ff;
+}
+
+.card-body .fs-5 {
+    font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .color-detail-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .color-detail-indicator {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .color-code {
+        font-size: 1rem;
+    }
+}
+</style>
 {% endblock %}

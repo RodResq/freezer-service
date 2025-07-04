@@ -41,16 +41,33 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="{{ form.prateleira.id_for_label }}" class="form-label text-info">
-                                Prateleira
-                            </label>
-                            {{ form.prateleira }}
-                            {% if form.prateleira.errors %}
-                                <div class="text-danger mt-1">
-                                    {{ form.prateleira.errors }}
+                        <div class="row mb-3">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="{{ form.prateleira.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-grid-3x3-gap me-1"></i>Prateleira
+                                </label>
+                                {{ form.prateleira }}
+                                {% if form.prateleira.errors %}
+                                    <div class="text-danger mt-1">
+                                        {{ form.prateleira.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.cor_referencia.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-palette me-1"></i>Cor de Referência
+                                </label>
+                                <div class="color-picker-container">
+                                    {{ form.cor_referencia }}
+                                    <div class="color-preview" id="colorPreview"></div>
                                 </div>
-                            {% endif %}
+                                {% if form.cor_referencia.errors %}
+                                    <div class="text-danger mt-1">
+                                        {{ form.cor_referencia.errors }}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-light">{{ form.cor_referencia.help_text }}</small>
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -79,4 +96,148 @@
         </div>
     </div>
 </div>
+<style>
+/* Estilos para o seletor de cor */
+.color-picker-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-picker-container input[type="color"] {
+    width: 50px;
+    height: 45px;
+    border: 2px solid #5590a6;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+.color-picker-container input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 6px;
+    border: none;
+}
+
+.color-picker-container input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.color-picker-container input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.color-picker-container input[type="color"]:focus {
+    outline: none;
+    border-color: #a8d8ea;
+    box-shadow: 0 0 0 0.25rem rgba(168, 216, 234, 0.25);
+}
+
+.color-preview {
+    width: 100px;
+    height: 45px;
+    border: 2px solid #5590a6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.color-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajustes para campos de input com ícones */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-label i {
+    opacity: 0.8;
+}
+
+/* Melhorias visuais para os inputs */
+.form-control, .form-select {
+    border: 2px solid #5590a6;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #a8d8ea;
+    box-shadow: 0 0 0 0.25rem rgba(168, 216, 234, 0.25);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Estilo para o textarea */
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .color-picker-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .color-preview {
+        width: 80px;
+        height: 35px;
+        font-size: 0.7rem;
+    }
+    
+    .color-picker-container input[type="color"] {
+        width: 40px;
+        height: 35px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const colorInput = document.getElementById('{{ form.cor_referencia.id_for_label }}');
+    const colorPreview = document.getElementById('colorPreview');
+    
+    function updateColorPreview() {
+        const color = colorInput.value;
+        colorPreview.style.backgroundColor = color;
+        colorPreview.textContent = color.toUpperCase();
+        
+        // Calcular luminosidade para decidir cor do texto
+        const r = parseInt(color.substr(1, 2), 16);
+        const g = parseInt(color.substr(3, 2), 16);
+        const b = parseInt(color.substr(5, 2), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        
+        // Usar texto escuro se a cor for clara
+        colorPreview.style.color = luminance > 0.5 ? '#000' : '#fff';
+    }
+    
+    // Atualizar preview quando a cor mudar
+    colorInput.addEventListener('input', updateColorPreview);
+    colorInput.addEventListener('change', updateColorPreview);
+    
+    // Inicializar preview
+    updateColorPreview();
+});
+</script>
 {% endblock %}
