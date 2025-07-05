@@ -1,16 +1,15 @@
 {% load static %}
 
-<!-- Search Section -->
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="card search-card">
             <div class="card-body p-4">
-                <form class="search-form" method="GET" action="{% url 'local_armazenamento:listar' %}">
+                <div class="search-form">
                     <div class="input-group mb-3">
                         <input type="text" name="search" class="form-control" placeholder="O que você está procurando?" aria-label="Pesquisar">
-                        <button class="btn btn-search" type="submit">
+                        <a class="btn btn-search" id="btnPesquisar">
                             <i class="bi bi-search me-2"></i>Pesquisar
-                        </button>
+                        </a>
                     </div>
                     
                     <div class="d-flex justify-content-end">
@@ -55,13 +54,13 @@
                                     <input type="text" class="form-control" name="keywords" placeholder="Separe as palavras por vírgula">
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-3">
-                                    <button type="reset" class="btn btn-outline-secondary me-2">Limpar</button>
-                                    <button type="submit" class="btn btn-search">Aplicar Filtros</button>
+                                    <button class="btn btn-outline-secondary me-2">Limpar</button>
+                                    <button class="btn btn-search">Aplicar Filtros</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

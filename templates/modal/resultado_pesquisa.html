@@ -1,0 +1,49 @@
+<div class="modal fade" id="resultadoPesquisaModal" tabindex="-1" aria-labelledby="resultadoPesquisaModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultadoPesquisaModalModalLabel">Resultado Pesquisa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> Confira os itens abaixo antes de confirmar suas apostas.
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table table-striped" id="apostasTable">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Localização</th>
+                  <th>Quantidade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Itens de apostas serão adicionados aqui dinamicamente -->
+                <td><span id="codigo-peca"></td>
+                <td><span id="nome-peca"></td>
+                <td><span id="nome-local"></td> <!-- Editar o odd -->
+                <td><span id="quantidade-peca"></td>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="mt-3">
+            <div class="d-flex justify-content-between">
+              <div>
+                <strong>Valor total:</strong> R$ <span id="valorTotal">0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="confirmarAceiteBtn">
+            <i class="bi bi-check-circle"></i> Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> 
