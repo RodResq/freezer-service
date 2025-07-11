@@ -18,7 +18,8 @@ def listar(request):
     pecas = Peca.objects.select_related(
         'id_categoria_peca',
         'id_local_armazenamento',
-        'id_fornecedor'
+        'id_fornecedor',
+        'estoque'
     ).all()
     
     if search:
@@ -56,7 +57,7 @@ def cadastrar(request):
             
             Estoque.objects.create(
                 id_peca=peca,
-                quantidade=peca.qtd_minima
+                quantidade=peca.qtd_estoque
             )
             
             if peca.foto:
@@ -106,6 +107,8 @@ def editar(request, peca_id):
         form = PecaForm(request.POST, request.FILES, instance=peca)
         if form.is_valid():
             peca_editada = form.save()
+            
+            # Implementar Entrada em estoque das peças
             
             if 'foto' in request.FILES and peca_editada.foto:
                 extensao_foto = os.path.splitext(peca_editada.foto.name)[1]

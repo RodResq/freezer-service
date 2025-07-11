@@ -74,6 +74,19 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-4 mb-3 mb-md-0">
+                                <label for="{{ form.qtd_estoque.id_for_label }}" class="form-label text-info">
+                                    <i class="bi bi-123 me-1"></i>{{ form.qtd_estoque.label }}
+                                </label>
+                                {{ form.qtd_estoque }}
+                                {% if form.qtd_estoque.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.qtd_estoque.errors %}
+                                            <small><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
                                 <label for="{{ form.unidade.id_for_label }}" class="form-label text-info">
                                     <i class="bi bi-rulers me-1"></i>{{ form.unidade.label }}
                                 </label>

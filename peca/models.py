@@ -10,6 +10,7 @@ class Peca(models.Model):
     codigo = models.CharField(max_length=50, blank=False, null=False)
     descricao = models.TextField(max_length=500, blank=False, null=False)
     qtd_minima = models.IntegerField(blank=True, null=True, default=0)
+    qtd_estoque = models.IntegerField(blank=True, null=True, default=0)
     unidade = models.CharField(max_length=50)
     foto = models.ImageField(upload_to="foto/%Y/%m/%d/", blank=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)

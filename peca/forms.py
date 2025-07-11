@@ -9,7 +9,7 @@ class PecaForm(forms.ModelForm):
     
     class Meta:
         model = Peca
-        fields = ['nome', 'codigo', 'descricao', 'qtd_minima', 'unidade', 'valor', 
+        fields = ['nome', 'codigo', 'descricao', 'qtd_minima', 'qtd_estoque', 'unidade', 'valor', 
                  'id_categoria_peca', 'id_local_armazenamento', 'id_fornecedor', 'foto']
         widgets = {
             'nome': forms.TextInput(attrs={
@@ -23,6 +23,9 @@ class PecaForm(forms.ModelForm):
                 'class': 'form-control'
                 }),
             'qtd_minima': forms.NumberInput(attrs={
+                'class': 'form-control'
+                }),
+            'qtd_estoque': forms.NumberInput(attrs={
                 'class': 'form-control'
                 }),
             'unidade': forms.TextInput(attrs={
@@ -55,6 +58,7 @@ class PecaForm(forms.ModelForm):
             'codigo': 'Código',
             'descricao': 'Descrição',
             'qtd_minima': 'Quantidade Mínima do estoque',
+            'qtd_estoque': 'Quantidade Estoque Entrada',
             'unidade': 'Unidade de Medida',
             'valor': 'Valor Unitário (R$)',
             'id_categoria_peca': 'Categoria',
@@ -88,6 +92,7 @@ class PecaForm(forms.ModelForm):
         
         if not self.instance.pk:
             self.fields['qtd_minima'].initial = 0
+            self.fields['qtd_estoque'].initial = 0
         
         
     def clean_codigo(self):
@@ -122,4 +127,10 @@ class PecaForm(forms.ModelForm):
         if qtd is not None and qtd < 0:
             raise forms.ValidationError('A quantidade mínima não pode ser negativa.')
         return qtd
+    
+    def clean_qtd_estoque(self):
+        qtd_estoque = self.cleaned_data.get('qtd_estoque')
+        if qtd_estoque is not None and qtd_estoque < 0:
+            raise forms.ValidationError('A quantidade estoque não pode ser negativa.')
+        return qtd_estoque
 

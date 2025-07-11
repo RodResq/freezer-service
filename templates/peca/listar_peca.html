@@ -98,17 +98,20 @@
                                     </td>
                                     <td class="text-center">
                                         {% with estoque=peca.estoque_set.first %}
-                                            {% if estoque %}
-                                                <span class="badge {% if estoque.quantidade <= peca.qtd_minima %}bg-danger{% else %}bg-success{% endif %}">
-                                                    {{ estoque.quantidade|default:0 }}
+                                            {% if peca.estoque %}
+                                                <span class="badge 
+                                                    {% if  peca.estoque.quantidade == 0 %}bg-secondary
+                                                    {% elif peca.estoque.quantidade <= peca.qtd_minima %}bg-danger
+                                                    {% else %}bg-success{% endif %}">
+                                                    {{ peca.estoque.quantidade }}
                                                 </span>
+                                                {% if peca.qtd_minima %}
+                                                    <br><small class="text-info">Min: {{ peca.qtd_minima }}</small>
+                                                {% endif %}
                                             {% else %}
                                                 <span class="badge bg-secondary">0</span>
                                             {% endif %}
                                         {% endwith %}
-                                        {% if peca.qtd_minima %}
-                                            <br><small class="">Min: {{ peca.qtd_minima }}</small>
-                                        {% endif %}
                                     </td>
                                     <td class="text-end">
                                         {% if peca.valor %}
