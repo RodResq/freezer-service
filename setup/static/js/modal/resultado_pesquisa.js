@@ -14,7 +14,7 @@ export function initResultadoPesquisa() {
 async function recuperarDadosPesquisa() {
     let dados = [];
     try {
-        const result = await fetch('api/recuperar_dados_pesquisa');
+        const result = await fetch('api/v1/estoque/buscar');
 
         if (!result.ok) {
             throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`)
@@ -35,13 +35,53 @@ async function recuperarDadosPesquisa() {
 }
 
 
-function renderizarDados(dados) {
+function renderizarDados(pecas) {
     const modal = document.getElementById('resultadoPesquisaModal');
+    const bodyResultadoPesquisa = document.getElementById('body-resultado-pesquisa');
 
     if (!modal) return;
 
     const modalInstance = new bootstrap.Modal(modal);
     modalInstance.show();
+
+    if (!bodyResultadoPesquisa) return;
+
+    if (!dados || dados.length == 0) {
+        bodyResultadoPesquisa.innerHTML = `
+            <tr>
+                <td colspan="5" class="text-center text-info">
+                    Nenhuma peça encontrada!
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    const rows = pecas.map(peca => {
+
+        return `
+            <tr>
+                <td>${peca.codigo}</td>
+                <td>${peca.nome || 'N/A'}</td>
+                <td>${peca.local_armazenamento.setor || 'N/A'}</td>
+                <td>${peca.estoque.quantidade}</td>
+                <td>
+                    <button class="btn btn-sm btn-info" title="Ver detalhes" onclick="viewPecaDetails('${peca.id}')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-success" title="Aceitar" onclick="acceptPeca('${peca.id}')">
+                        <i class="bi bi-check"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" title="Recusar" onclick="rejectPeca('${peca.id}')">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+
+    }).join('');
+
+    bodyResultadoPesquisa.innerHTML = rows;
 
 }
 
