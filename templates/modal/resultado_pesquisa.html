@@ -31,3 +31,42 @@
       </div>
     </div>
   </div> 
+<style>
+.color-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 3px;
+}
+
+.color-indicator:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Melhorias na tabela */
+.table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(168, 216, 234, 0.1) !important;
+}
+
+.table-hover tbody tr:hover .color-indicator {
+    transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .color-indicator {
+        width: 25px;
+        height: 25px;
+    }
+}
+</style>

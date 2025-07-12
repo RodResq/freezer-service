@@ -26,7 +26,14 @@ def buscar(request):
     pecas = pecas.order_by('nome')
     
     pecas_data = list(pecas.values(
-        'id', 'codigo', 'nome', 'id_local_armazenamento__setor', 'estoque__quantidade'
+        'id', 
+        'codigo', 
+        'nome', 
+        'id_local_armazenamento__prateleira', 
+        'id_local_armazenamento__estante',  
+        'id_local_armazenamento__setor', 
+        'id_local_armazenamento__cor_referencia', 
+        'estoque__quantidade'
     ))
     
     return JsonResponse({

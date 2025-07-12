@@ -130,7 +130,12 @@ function renderizarDados(dados) {
             <tr>
                 <td>${escapeHtml(peca.codigo || 'N/A')}</td>
                 <td>${escapeHtml(peca.nome || 'N/A')}</td>
-                <td>${escapeHtml(peca.id_local_armazenamento__setor || 'N/A')}</td>
+                <td>
+                    <div class="color-indicator d-inline-flex" 
+                        style="background-color:${escapeHtml(peca.id_local_armazenamento__cor_referencia)}">
+                    </div>
+                    <div class="d-inline-flex" style="vertical-align: text-bottom;">Estante: ${escapeHtml(peca.id_local_armazenamento__estante || 'N/A')} / Prateleira: ${escapeHtml(peca.id_local_armazenamento__prateleira || 'N/A')} / Setor: ${escapeHtml(peca.id_local_armazenamento__setor || 'N/A')}</div>
+                </td>
                 <td>${escapeHtml(peca.estoque__quantidade || 0)}</td>
                 <td>
                     <button class="btn btn-sm btn-info" title="Ver detalhes" onclick="viewPecaDetails('${peca.id}')">
