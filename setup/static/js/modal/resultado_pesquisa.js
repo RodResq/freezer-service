@@ -35,18 +35,18 @@ async function recuperarDadosPesquisa() {
 }
 
 
-function renderizarDados(pecas) {
+function renderizarDados(dados) {
+    
     const modal = document.getElementById('resultadoPesquisaModal');
-    const bodyResultadoPesquisa = document.getElementById('body-resultado-pesquisa');
-
     if (!modal) return;
-
+    
     const modalInstance = new bootstrap.Modal(modal);
     modalInstance.show();
-
+    
+    const bodyResultadoPesquisa = document.getElementById('body-resultado-pesquisa');    
     if (!bodyResultadoPesquisa) return;
 
-    if (!dados || dados.length == 0) {
+    if (!dados || dados['pecas'].length == 0) {
         bodyResultadoPesquisa.innerHTML = `
             <tr>
                 <td colspan="5" class="text-center text-info">
@@ -57,14 +57,15 @@ function renderizarDados(pecas) {
         return;
     }
 
-    const rows = pecas.map(peca => {
+    const pecas = dados['pecas'];
 
+    const rows = pecas.map(peca => {
         return `
             <tr>
                 <td>${peca.codigo}</td>
                 <td>${peca.nome || 'N/A'}</td>
-                <td>${peca.local_armazenamento.setor || 'N/A'}</td>
-                <td>${peca.estoque.quantidade}</td>
+                <td>${peca.id_local_armazenamento__setor || 'N/A'}</td>
+                <td>${peca.estoque__quantidade || 0}</td>
                 <td>
                     <button class="btn btn-sm btn-info" title="Ver detalhes" onclick="viewPecaDetails('${peca.id}')">
                         <i class="bi bi-eye"></i>
