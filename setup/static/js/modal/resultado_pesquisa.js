@@ -3,6 +3,7 @@ import { showNotification } from "../notifications.js";
 
 export function initResultadoPesquisa() {
     const btnPesquisar = document.getElementById('btnPesquisar');
+    const retirarPeca = document.getElementById('retirarPeca');
     
     if (!btnPesquisar) return;
 
@@ -138,15 +139,12 @@ function renderizarDados(dados) {
                 </td>
                 <td>${escapeHtml(peca.estoque__quantidade || 0)}</td>
                 <td>
-                    <button class="btn btn-sm btn-info" title="Ver detalhes" onclick="viewPecaDetails('${peca.id}')">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-success" title="Aceitar" onclick="acceptPeca('${peca.id}')">
-                        <i class="bi bi-check"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Recusar" onclick="rejectPeca('${peca.id}')">
-                        <i class="bi bi-x"></i>
-                    </button>
+                    <a class="retirar-peca btn btn-sm btn-success" title="Retirar Peça" data-event-id="${peca.id}">
+                        <i class="bi bi-box-arrow-up"></i>
+                    </a>
+                    <a class="movimentar-peca btn btn-sm btn-info" title="Movimentar Peça" data-event-id="${peca.id}">
+                        <i class="bi bi-arrows-expand-vertical"></i>
+                    </a>
                 </td>
             </tr>
         `;
@@ -155,7 +153,20 @@ function renderizarDados(dados) {
 
     bodyResultadoPesquisa.innerHTML = rows;
 
+    const btnsRetirarPeca = document.querySelectorAll('.retirar-peca');
+
+    btnsRetirarPeca.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const pecaId = this.dataset.eventId;
+            console.log('Retirar Peca: ' + pecaId);
+            
+        });
+    })
+
 }
+
 
 
 function escapeHtml(texto) {
