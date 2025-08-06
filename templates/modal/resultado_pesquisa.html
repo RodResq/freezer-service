@@ -1,72 +1,390 @@
 <div class="modal fade" id="resultadoPesquisaModal" tabindex="0" aria-labelledby="resultadoPesquisaModal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="resultadoPesquisaModalModalLabel">Resultado Pesquisa</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <div class="modal-content modal-antartica">
+            <div class="modal-header header-antartica">
+                <h5 class="modal-title text-white" id="resultadoPesquisaModalModalLabel">
+                    <i class="bi bi-search me-2"></i>Resultado da Pesquisa
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body body-antartica">
+                <div class="table-responsive table-container-antartica">
+                    <table class="table table-antartica table-hover" id="apostasTable">
+                        <thead class="thead-antartica">
+                            <tr>
+                                <th><i class="bi bi-qr-code me-1"></i>Código</th>
+                                <th><i class="bi bi-tag me-1"></i>Nome</th>
+                                <th><i class="bi bi-geo-alt me-1"></i>Localização</th>
+                                <th><i class="bi bi-box me-1"></i>Quantidade</th>
+                                <th><i class="bi bi-gear me-1"></i>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="body-resultado-pesquisa" class="tbody-antartica">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer footer-antartica">
+                <button type="button" class="btn btn-cancelar-antartica" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-1"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-confirmar-antartica" id="confirmarAceiteBtn">
+                    <i class="bi bi-check-circle me-1"></i>Confirmar
+                </button>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="table-responsive">
-            <table class="table table-striped" id="apostasTable">
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Nome</th>
-                  <th>Localização</th>
-                  <th>Quantidade</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody id="body-resultado-pesquisa">
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="confirmarAceiteBtn">
-            <i class="bi bi-check-circle"></i> Ok
-          </button>
-        </div>
-      </div>
     </div>
-  </div> 
+</div>
+
 <style>
+/* ==============================================
+   MODAL TEMA ANTÁRTIDA
+   ============================================== */
+
+/* Container Principal do Modal */
+.modal-antartica {
+    background-color: rgba(21, 32, 43, 0.95);
+    border-radius: 15px;
+    border: 2px solid #5590a6;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+/* Header do Modal */
+.header-antartica {
+    background: linear-gradient(135deg, #5590a6, #15202b);
+    border-bottom: 3px solid #a8d8ea;
+    padding: 20px 25px;
+}
+
+.header-antartica .modal-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #e0f7ff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-close-white {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.btn-close-white:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Body do Modal */
+.body-antartica {
+    background-color: rgba(21, 32, 43, 0.9);
+    padding: 25px;
+    color: #e0f7ff;
+}
+
+/* Container da Tabela */
+.table-container-antartica {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(85, 144, 166, 0.3);
+}
+
+/* Tabela Principal */
+.table-antartica {
+    margin-bottom: 0;
+    background-color: transparent;
+    color: #e0f7ff;
+}
+
+/* Header da Tabela */
+.thead-antartica th {
+    background: linear-gradient(135deg, rgba(85, 144, 166, 0.8), rgba(21, 32, 43, 0.9));
+    color: #a8d8ea;
+    border-bottom: 2px solid #5590a6;
+    font-weight: 600;
+    padding: 18px 15px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.thead-antartica th i {
+    color: #a8d8ea;
+    margin-right: 5px;
+}
+
+/* Body da Tabela */
+.tbody-antartica td {
+    border-color: rgba(85, 144, 166, 0.2);
+    padding: 15px;
+    vertical-align: middle;
+    background-color: rgba(21, 32, 43, 0.4);
+    transition: all 0.3s ease;
+    color: aliceblue;
+}
+
+/* Hover Effect nas Linhas */
+.table-hover .tbody-antartica tr:hover td {
+    background-color: rgba(168, 216, 234, 0.15) !important;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(168, 216, 234, 0.1);
+}
+
+/* Indicador de Cor Melhorado */
 .color-indicator {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 3px solid #fff;
     margin: 0 auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-right: 3px;
-}
-
-.color-indicator:hover {
-    transform: scale(1.2);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-/* Melhorias na tabela */
-.table td {
+    margin-right: 8px;
+    display: inline-block;
     vertical-align: middle;
 }
 
-.table-hover tbody tr:hover {
-    background-color: rgba(168, 216, 234, 0.1) !important;
+.color-indicator:hover {
+    transform: scale(1.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    border-color: #a8d8ea;
 }
 
-.table-hover tbody tr:hover .color-indicator {
-    transform: scale(1.1);
+/* Informações de Localização */
+.location-info {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    color: aliceblue;
+}
+
+/* Botões de Ação */
+.btn-action-antartica {
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 0 3px;
+    font-size: 0.85rem;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Botão Retirar */
+.btn-success.btn-action-antartica {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-success.btn-action-antartica:hover {
+    background: linear-gradient(135deg, #218838, #1ac09f);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Botão Movimentar */
+.btn-info.btn-action-antartica {
+    background: linear-gradient(135deg, #5590a6, #a8d8ea);
+    color: #15202b;
+    box-shadow: 0 4px 15px rgba(85, 144, 166, 0.3);
+}
+
+.btn-info.btn-action-antartica:hover {
+    background: linear-gradient(135deg, #a8d8ea, #e0f7ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 216, 234, 0.4);
+}
+
+/* Footer do Modal */
+.footer-antartica {
+    background: linear-gradient(135deg, rgba(21, 32, 43, 0.9), rgba(11, 22, 39, 0.9));
+    border-top: 2px solid #5590a6;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+/* Botão Cancelar */
+.btn-cancelar-antartica {
+    background-color: rgba(108, 117, 125, 0.8);
+    color: #fff;
+    border: 2px solid #6c757d;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar-antartica:hover {
+    background-color: #6c757d;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+}
+
+/* Botão Confirmar */
+.btn-confirmar-antartica {
+    background: linear-gradient(135deg, #a8d8ea, #5590a6);
+    color: #15202b;
+    border: 2px solid #a8d8ea;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-confirmar-antartica:hover {
+    background: linear-gradient(135deg, #e0f7ff, #a8d8ea);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(168, 216, 234, 0.4);
+}
+
+/* Estado Vazio - Nenhum Resultado */
+.empty-state-antartica {
+    text-align: center;
+    padding: 40px 20px;
+    color: #a8d8ea;
+}
+
+.empty-state-antartica i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+.empty-state-antartica h4 {
+    color: aliceblue;
+    margin-bottom: 10px;
+}
+
+.empty-state-antartica p {
+    color: aliceblue;
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* Loading State */
+.loading-antartica {
+    text-align: center;
+    padding: 30px;
+    color: #a8d8ea;
+}
+
+.loading-antartica .spinner-border {
+    color: #a8d8ea;
+    width: 3rem;
+    height: 3rem;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .color-indicator {
-        width: 25px;
-        height: 25px;
+    .modal-dialog {
+        margin: 10px;
     }
+    
+    .header-antartica,
+    .body-antartica,
+    .footer-antartica {
+        padding: 15px;
+    }
+    
+    .thead-antartica th {
+        padding: 12px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .tbody-antartica td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .color-indicator {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+    
+    .btn-action-antartica {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+        margin: 0 2px;
+    }
+    
+    .footer-antartica {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-cancelar-antartica,
+    .btn-confirmar-antartica {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-container-antartica {
+        border-radius: 8px;
+    }
+    
+    .thead-antartica th,
+    .tbody-antartica td {
+        padding: 8px 5px;
+        font-size: 0.75rem;
+    }
+    
+    .color-indicator {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .location-info {
+        font-size: 0.7rem;
+        color: aliceblue;
+    }
+}
+
+/* Animações de Entrada */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal.show .modal-antartica {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Scrollbar personalizada */
+.table-container-antartica::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-container-antartica::-webkit-scrollbar-track {
+    background: rgba(21, 32, 43, 0.5);
+    border-radius: 4px;
+}
+
+.table-container-antartica::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #5590a6, #a8d8ea);
+    border-radius: 4px;
+}
+
+.table-container-antartica::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #a8d8ea, #e0f7ff);
 }
 </style>
