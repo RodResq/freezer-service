@@ -474,7 +474,7 @@
     <!-- Efeito de neve -->
     <script>
         // Criar o contêiner para os flocos de neve
-        const snowfallContainer = document.createElement('div');
+        {% comment %} const snowfallContainer = document.createElement('div');
         snowfallContainer.classList.add('snowfall-container');
         document.body.prepend(snowfallContainer);
         
@@ -520,7 +520,7 @@
                 snowflake.remove();
                 createSnowflake();
             }, duration * 1000);
-        }
+        } {% endcomment %}
     </script>
 </body>
 </html>

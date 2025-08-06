@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'styles/index.css' %}">
 </head>
 <body>
-    <div class="snowfall-container"></div>
+    <div class=""></div>
 
     {% include 'partials/_navbar.html' %}
     {% include 'modal/resultado_pesquisa.html' %}
@@ -20,7 +20,7 @@
         {% block content %}{% endblock %}
     </main>
     
-    {% include 'partials/_footer.html' %}
+    {% comment %} {% include 'partials/_footer.html' %} {% endcomment %}
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script type="module" src="{% static 'js/dashboard.js' %}"></script> 

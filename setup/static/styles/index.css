@@ -400,17 +400,6 @@ form textarea.form-control {
     }
 }
 
-.snowfall-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70vh;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to bottom, rgba(44, 62, 80, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
-}
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -507,3 +496,142 @@ body p {
     color: aliceblue;
 }
 
+
+.search-card {
+    margin-top: -90px;
+}
+
+
+/* Container para limitar o efeito de neve */
+.snowfall-container {
+    position: relative;
+    overflow: hidden; /* Importante: oculta flocos que saem dos limites */
+}
+
+/* Estilos dos flocos de neve */
+.snowflake {
+    position: absolute;
+    top: -20px; /* Começa acima do container */
+    color: #ffffff;
+    user-select: none;
+    pointer-events: none; /* Não interfere com cliques */
+    animation: snowfall linear infinite;
+    z-index: 1; /* Garante que ficará atrás do conteúdo */
+}
+
+/* Animação de queda da neve */
+@keyframes snowfall {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(calc(100vh + 20px)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Garante que o conteúdo fique acima da neve */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Neve no chão de fundo da página */
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.6) 70%,
+        rgba(255, 255, 255, 0.9) 85%,
+        #ffffff 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-image: 
+        radial-gradient(circle at 10% 50%, rgba(255, 255, 255, 0.8) 2px, transparent 3px),
+        radial-gradient(circle at 25% 30%, rgba(255, 255, 255, 0.6) 1.5px, transparent 2px),
+        radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.9) 2.5px, transparent 3px),
+        radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.7) 1px, transparent 2px),
+        radial-gradient(circle at 75% 80%, rgba(255, 255, 255, 0.8) 2px, transparent 3px),
+        radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.5) 1.5px, transparent 2px),
+        radial-gradient(circle at 15% 90%, rgba(255, 255, 255, 0.9) 2.5px, transparent 3px),
+        radial-gradient(circle at 35% 10%, rgba(255, 255, 255, 0.6) 1px, transparent 2px),
+        radial-gradient(circle at 55% 95%, rgba(255, 255, 255, 0.8) 2px, transparent 3px),
+        radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.7) 1.5px, transparent 2px);
+    background-size: 
+        200px 80px, 150px 60px, 180px 70px, 120px 50px, 160px 65px,
+        140px 55px, 190px 75px, 110px 45px, 170px 68px, 130px 52px;
+    background-position: 
+        0 0, 50px 10px, 100px 5px, 200px 15px, 300px 8px,
+        400px 12px, 500px 3px, 600px 18px, 700px 7px, 800px 13px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Flocos caindo */
+.snowflake.falling {
+    z-index: 1;
+    animation: none; 
+}
+
+
+/* Garante que o conteúdo fique acima da neve */
+.hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    margin: 2rem;
+}
+
+/* Título com efeito de gelo */
+.hero-content h1 {
+    color: #ffffff;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(173, 216, 230, 0.6),
+        0 0 30px rgba(173, 216, 230, 0.4);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .snowfall-container {
+        min-height: 300px;
+    }
+    
+    .hero-content {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
