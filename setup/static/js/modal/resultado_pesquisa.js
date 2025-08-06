@@ -167,8 +167,6 @@ function renderizarDados(dados) {
 
 }
 
-
-
 function escapeHtml(texto) {
     if (typeof texto != 'string') return texto;
 

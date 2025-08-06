@@ -502,3 +502,8 @@ form textarea.form-control {
         height: 42px;
     }
 }
+
+body p {
+    color: aliceblue;
+}
+
