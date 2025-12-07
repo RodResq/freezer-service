@@ -35,7 +35,7 @@ def login_view(request):
     Handle user login
     """
     if request.user.is_authenticated:
-        return redirect('')  # Redirect to homepage if already logged in
+        return redirect('/freezer-app')  # Redirect to homepage if already logged in
     
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, request.POST)

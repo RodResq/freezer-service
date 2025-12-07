@@ -6,11 +6,11 @@ from django.conf.urls.static import static
 from gerencia.views import index
 
 web_urlpatterns = [
-    path('', index, name='index'),
-    path('users/', include('users.urls', namespace='users')),
-    path('locais-armazenamento/', include('local_armazenamento.urls', namespace='local_armazenamento')),
-    path('categorias/', include('categoria_peca.urls', namespace='categorias_peca')),
-    path('pecas', include('peca.urls', namespace='peca'))
+    path('freezer-app', index, name='index'),
+    path('freezer-app/users/', include('users.urls', namespace='users')),
+    path('freezer-app/locais-armazenamento/', include('local_armazenamento.urls', namespace='local_armazenamento')),
+    path('freezer-app/categorias/', include('categoria_peca.urls', namespace='categorias_peca')),
+    path('freezer-app/pecas', include('peca.urls', namespace='peca'))
 ]
 
 api_urlpatterns = [
